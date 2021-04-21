@@ -25,13 +25,13 @@
 
 
 function getword(info,tab) {
-  console.log("Word " + info.selectionText + " was clicked.");
+  console.log("Word " + info.selectionText + " was translated.");
   chrome.tabs.create({  
     url: "https://translate.google.com/?sl=auto&tl=en&text=" + info.selectionText.split(" ").join("+")
   });
 }
 chrome.contextMenus.create({
-  title: "Search: %s", 
+  title: "Translate: %s", 
   contexts:["selection"], 
   onclick: getword
 });
