@@ -22,16 +22,34 @@
 //     });
 //   }
 // });
-
-
-function getword(info,tab) {
-  console.log("Word " + info.selectionText + " was translated.");
-  chrome.tabs.create({  
-    url: "https://translate.google.com/?sl=auto&tl=en&text=" + info.selectionText.split(" ").join("+")
-  });
+var factoryOptions = {
+  speed : 200,
+  periodPause : True
 }
-chrome.contextMenus.create({
-  title: "Translate: %s", 
-  contexts:["selection"], 
-  onclick: getword
+var options = {};
+chrome.storage.local.get(['options'], (result) => {
+  if (result.options){
+    options = result.options;
+  }else{
+    options = factoryOptions;
+  };
 });
+
+
+function SpeedRead(info, tab) {
+  chrome.storage.local.set({ text: info.selectionText }, () => {
+    chrome.tabs.create({
+      url: "/reader.html"
+    }, () => {
+      console.log("Created Reader")
+    });
+  });
+};
+
+
+chrome.contextMenus.create({
+  title: "Speedread: %s",
+  contexts: ["selection"],
+  onclick: SpeedRead
+});
+
