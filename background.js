@@ -23,16 +23,21 @@
 //   }
 // });
 var factoryOptions = {
-  speed : 200,
-  periodPause : True
+  speed: 200,
+  periodPause: true,
+  scrollSens: 10
 }
 var options = {};
 chrome.storage.local.get(['options'], (result) => {
-  if (result.options){
-    options = result.options;
-  }else{
+  if (result.options == null) {
     options = factoryOptions;
+  } else {
+    options = result.options;
   };
+  options.speed = options.hasOwnProperty('speed') ? options.speed : factoryOptions.speed;
+  options.periodPause = options.hasOwnProperty('periodPause') ? options.periodPause : factoryOptions.periodPause;
+  options.scrollSens = options.hasOwnProperty('scrollSens') ? factoryOptions.scrollSens : factoryOptions.scrollSens;
+  chrome.storage.local.set({ options: options });
 });
 
 
