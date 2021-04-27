@@ -47,11 +47,5 @@ document.onwheel = function (e) {
 
 optionsShow.onclick = function (e) {
     console.log('the dispaly', optionsDisplay.style.display)
-    if (optionsDisplay.style.visibility == 'hidden'){
-        // optionsDisplay.style.paddingTop = '100px';
-        optionsDisplay.style.visibility = 'visible';
-    }else{
-        optionsDisplay.style.visibility = 'hidden';
-        // optionsDisplay.style.paddingTop = '100px';
-    };
+    optionsDisplay.style.visibility == 'hidden' ? optionsDisplay.style.visibility = 'visible' : optionsDisplay.style.visibility = 'hidden';
 };
