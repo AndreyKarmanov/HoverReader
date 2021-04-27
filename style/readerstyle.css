@@ -1,11 +1,82 @@
-.body {
-    min-width: 100%;
+html, body {
+    margin: 0;
+    height: 100%;
+    background-color: beige;
 }
 
 .container {
     background-color: antiquewhite;
+    padding: 15px;
+    padding-top: 100px;
+    margin: 0;
+    min-width: 627px;
+    width: fit-content;
+    height: fit-content;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-.reader {}
+.reader {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: aliceblue;
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+    border-radius: 3px;
+}
 
-.options {}
+.options {
+    width: 627px;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.selector {
+    max-width: fit-content;
+    flex: auto;
+    background-color: antiquewhite;
+    margin: 4px;
+    padding: 5px;
+    border: solid 2px;
+    border-radius: 10px;
+    border-color: lightgray;
+}
+
+.selector .name {
+    text-align: center;
+    background-color: aliceblue;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-bottom: 3px;
+    width: 100%;
+    /* border: inherit; */
+    border-radius: inherit;
+}
+
+.selector input {
+    margin-left: 0%;
+    width: 70px;
+    text-align: center;
+    background-color: aliceblue;
+    border: inherit;
+    border-radius: inherit;
+}
+
+.selector input::-webkit-outer-spin-button, .selector input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.selector button {
+    border-color: inherit;
+    border-radius: inherit;
+    min-width: 25px;
+}
+
+.selector button .minus {}
+
+.selector button .plus {}
