@@ -16,6 +16,7 @@ html, body {
     top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
+    border-radius: 15px;
 }
 
 .reader {
@@ -30,6 +31,19 @@ html, body {
     border-radius: 3px;
 }
 
+#readDisplay {
+    margin: 0px;
+}
+
+#optionsShow {
+    width: 100%;
+    color: slategray;
+    text-align: center;
+    background-color: aliceblue;
+    border-radius: 15px;
+    /* border-style: dashed; */
+    border-color: #f0f8ff;
+}
 .options {
     width: 627px;
     display: flex;
@@ -49,7 +63,7 @@ html, body {
 
 .selector .name {
     text-align: center;
-    background-color: aliceblue;
+    background-color: #f0f8ff;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin-bottom: 3px;
     width: 100%;
@@ -76,7 +90,3 @@ html, body {
     border-radius: inherit;
     min-width: 25px;
 }
-
-.selector button .minus {}
-
-.selector button .plus {}

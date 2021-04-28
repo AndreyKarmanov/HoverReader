@@ -24,19 +24,25 @@
 // });
 var factoryOptions = {
   speed: 200,
-  periodPause: true,
-  scrollSens: 10
+  periodPause: 0,
+  scrollSens: 10,
+  fontSize: 24,
+  backColour: "#f0f8ff",
+  fontColour: "#000000"
 }
 var options = {};
+chrome.storage.local.set({ factoryOptions: factoryOptions });
 chrome.storage.local.get(['options'], (result) => {
   if (result.options == null) {
     options = factoryOptions;
   } else {
     options = result.options;
   };
-  options.speed = options.hasOwnProperty('speed') ? options.speed : factoryOptions.speed;
-  options.periodPause = options.hasOwnProperty('periodPause') ? options.periodPause : factoryOptions.periodPause;
-  options.scrollSens = options.hasOwnProperty('scrollSens') ? factoryOptions.scrollSens : factoryOptions.scrollSens;
+
+  Object.keys(factoryOptions).forEach((elem) => {
+    options[elem] = options.hasOwnProperty(elem) ? options[elem] : factoryOptions[elem];
+  });
+  console.log(options);
   chrome.storage.local.set({ options: options });
 });
 
