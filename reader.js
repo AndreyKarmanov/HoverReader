@@ -34,7 +34,13 @@ const buttons = {
 }
 
 chrome.storage.local.get(['text'], (result) => {
-    wording = wording.concat(result.text.split(/\s|\//));
+    var excluded = ["", '/', '.']
+    result.text.split(/\s|\/|\—/).forEach((elem) => {
+        if (excluded.indexOf(elem)) {
+            wording.push(elem);
+        }
+    });
+    console.log(wording);
     chrome.storage.local.get(['options'], (result) => {
         options = result.options;
         console.log(result)
@@ -96,6 +102,7 @@ function resetOptions() {
 };
 
 function readWord() {
+    console.log("'", readDisplay.innerText, "'")
     readDisplay.innerText = wording[index++]
     if (index < wording.length) {
         if (readDisplay.innerText.endsWith('.') || readDisplay.innerText.endsWith(',')) {
