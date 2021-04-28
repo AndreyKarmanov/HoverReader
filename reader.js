@@ -7,6 +7,7 @@ var optionsDisplay = document.getElementById('optionsDisplay');
 var speedDisplay = document.getElementById('speed');
 var optionsShow = document.getElementById('optionsShow');
 var fnt = document.getElementById('fontSize');
+var timer;
 
 //min, max, +- button effect. 
 const buttons = {
@@ -27,18 +28,16 @@ const buttons = {
     },
     'fontSize': {
         min: 1,
-        max: 50,
+        max: 150,
         interval: 2
     }
 }
 
 chrome.storage.local.get(['text'], (result) => {
-    wording = wording.concat(result.text.split(" "));
+    wording = wording.concat(result.text.split(/\s|\//));
     chrome.storage.local.get(['options'], (result) => {
         options = result.options;
         console.log(result)
-        setTimeout(readWord, 500 + ms(options.speed));
-        console.log("started reading")
         init();
         optionsShow.click();
     });
@@ -66,11 +65,11 @@ function init() {
         resetOptions();
     };
 
-    document.getElementById('fontSize').oninput = updateFont
+    document.getElementById('fontSize').oninput = updateFont();
     readDisplay.style.fontSize = fnt.value + 'px';
 };
 
-function updateFont(){
+function updateFont() {
     readDisplay.style.fontSize = fnt.value + 'px';
 };
 
@@ -100,9 +99,9 @@ function readWord() {
     readDisplay.innerText = wording[index++]
     if (index < wording.length) {
         if (readDisplay.innerText.endsWith('.') || readDisplay.innerText.endsWith(',')) {
-            setTimeout(readWord, parseInt(options.periodPause) + ms(options.speed));
+            timer = setTimeout(readWord, parseInt(options.periodPause) + ms(options.speed));
         } else {
-            setTimeout(readWord, ms(options.speed));
+            timer = setTimeout(readWord, ms(options.speed));
         };
     };
 };
@@ -114,6 +113,17 @@ function ms(speed) {
 document.onkeypress = function (e) {
     e = e || window.event;
     console.log(e.key, e);
+    if (e.key == " ") {
+        if (timer && index < wording.length) {
+            clearTimeout(timer)
+            timer = 0;
+        } else if (index < wording.length) {
+            timer = setTimeout(readWord, ms(options.speed));
+        } else {
+            index = 0;
+            timer = setTimeout(readWord, 100 + ms(options.speed));
+        };
+    };
 };
 
 document.onwheel = function (e) {
@@ -128,10 +138,11 @@ document.onwheel = function (e) {
 optionsShow.onclick = function (e) {
     if (optionsDisplay.style.visibility == 'hidden') {
         optionsDisplay.style.visibility = 'visible';
-        optionsShow.textContent = '/\\';
+        optionsShow.textContent = '\\/';
     } else {
         optionsDisplay.style.visibility = 'hidden';
-        optionsShow.textContent = '\\/';
+        optionsShow.textContent = '/\\';
     };
 };
+
 

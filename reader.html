@@ -12,11 +12,11 @@
 </head>
 
 <body>
-    <div class="background">
-        <div class="container">
-            <div class="reader">
-                <p class="readerDisplay" id="readDisplay">3</p>
-            </div>
+    <!-- <div class="container">
+        <div class="reader">
+            <p class="readerDisplay" id="readDisplay">3</p>
+        </div>
+        <div class="extra">
             <button id="optionsShow">/\</button>
             <div class="options" id="optionsDisplay">
                 <div class="selector">
@@ -49,8 +49,46 @@
                 </div>
             </div>
         </div>
-        <script src="reader.js"></script>
+    </div> -->
+    <div class="container">
+        <div class="reader">
+            <p class="readerDisplay" id="readDisplay">3</p>
+        </div>
     </div>
+    <div class="extra">
+        <div class="options" id="optionsDisplay">
+            <div class="selector">
+                <div class="name">Speed</div>
+                <button class="minus">-</button>
+                <input type="number" id="speed" value="300">
+                <button class="plus">+</button>
+            </div>
+            <div class="selector">
+                <div class="name">Scroll Sensitivity</div>
+                <button class="minus">-</button>
+                <input type="number" id="scrollSens" value="24">
+                <button class="plus">+</button>
+            </div>
+            <div class="selector">
+                <div class="name">Period Pause</div>
+                <button class="minus">-</button>
+                <input type="number" id="periodPause" value="0">
+                <button class="plus">+</button>
+            </div>
+            <div class="selector">
+                <div class="name">Font Size</div>
+                <button class="minus">-</button>
+                <input type="number" id="fontSize" value="300">
+                <button class="plus">+</button>
+            </div>
+            <div class="selector" id="manage">
+                <button id="save">Save</button>
+                <button id="reset">Reset</button>
+            </div>
+        </div>
+        <button id="optionsShow">/\</button>
+    </div>
+    <script src="reader.js"></script>
 </body>
 
 </html>

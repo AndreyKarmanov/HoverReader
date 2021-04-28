@@ -4,7 +4,7 @@ html, body {
     background-color: beige;
 }
 
-.container {
+/* .container {
     background-color: antiquewhite;
     padding: 15px;
     padding-top: 100px;
@@ -17,6 +17,12 @@ html, body {
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 15px;
+} */
+
+.extra {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
 }
 
 .reader {
@@ -26,7 +32,7 @@ html, body {
     transform: translate(-50%, -50%);
     background-color: aliceblue;
     width: 100%;
-    padding: 15px;
+    padding: 15px 0px 15px 0px;
     text-align: center;
     border-radius: 3px;
 }
@@ -44,6 +50,7 @@ html, body {
     /* border-style: dashed; */
     border-color: #f0f8ff;
 }
+
 .options {
     width: 627px;
     display: flex;
