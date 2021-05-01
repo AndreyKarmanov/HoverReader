@@ -19,6 +19,22 @@ html, body {
     border-radius: 15px;
 } */
 
+/* PROGRESS BAR */
+
+#progressContainer {
+    margin: 0;
+    height: 10px;
+    width: 100%;
+    background-color: aliceblue;
+}
+
+#progress {
+    width: 0%;
+    height: 100%;
+    float: left;
+    background-color: aquamarine;
+}
+
 .extra {
     position: absolute;
     bottom: 0px;
@@ -85,6 +101,12 @@ html, body {
     background-color: aliceblue;
     border: inherit;
     border-radius: inherit;
+}
+
+.selector input[type=color]{
+    width: 100px;
+    border: inherit;
+    border-radius: 15px;
 }
 
 .selector input::-webkit-outer-spin-button, .selector input::-webkit-inner-spin-button {

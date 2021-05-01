@@ -7,6 +7,7 @@ var optionsDisplay = document.getElementById('optionsDisplay');
 var speedDisplay = document.getElementById('speed');
 var optionsShow = document.getElementById('optionsShow');
 var fnt = document.getElementById('fontSize');
+var progress = document.getElementById('progress');
 var timer;
 
 //min, max, +- button effect. 
@@ -29,9 +30,11 @@ const buttons = {
     'fontSize': {
         min: 1,
         max: 150,
-        interval: 2
+        interval: 2,
+        callBack: updateFont
     }
 }
+
 
 chrome.storage.local.get(['text'], (result) => {
     var excluded = ["", '/', '.']
@@ -57,9 +60,15 @@ function init() {
             saveable.push(elem);
             elem.previousElementSibling.onclick = function (e) {
                 elem.value = Math.min(buttons[option]['max'], Math.max(buttons[option]['min'], elem.value - buttons[option]['interval']))
+                if (buttons[option].hasOwnProperty('callBack')) {
+                    buttons[option].callBack();
+                };
             };
             elem.nextElementSibling.onclick = function (e) {
                 elem.value = Math.min(buttons[option]['max'], Math.max(buttons[option]['min'], elem.value - -buttons[option]['interval']))
+                if (buttons[option].hasOwnProperty('callBack')) {
+                    buttons[option].callBack();
+                };
             };
         };
     });
@@ -71,7 +80,9 @@ function init() {
         resetOptions();
     };
 
-    document.getElementById('fontSize').oninput = updateFont();
+    // document.getElementById('fontSize').oninput = updateFont;
+    fnt.addEventListener('input', updateFont);
+
     readDisplay.style.fontSize = fnt.value + 'px';
 };
 
@@ -102,8 +113,8 @@ function resetOptions() {
 };
 
 function readWord() {
-    console.log("'", readDisplay.innerText, "'")
-    readDisplay.innerText = wording[index++]
+    drawWord();
+    index++;
     if (index < wording.length) {
         if (readDisplay.innerText.endsWith('.') || readDisplay.innerText.endsWith(',')) {
             timer = setTimeout(readWord, parseInt(options.periodPause) + ms(options.speed));
@@ -133,6 +144,40 @@ document.onkeypress = function (e) {
     };
 };
 
+document.onkeydown = function (e) {
+    e = e || window.event;
+    console.log(e.key, e);
+    if (e.key == "ArrowLeft") {
+        if (timer) {
+            clearTimeout(timer)
+            timer = 0;
+        };
+        if (index > 0) {
+            index--;
+            drawWord();
+        } else {
+            index = wording.length - 1;
+            drawWord();
+        };
+    };
+    if (e.key == "ArrowRight") {
+        if (timer) {
+            clearTimeout(timer);
+            timer = 0;
+        }
+        if (index < wording.length - 1) {
+            index++;
+            drawWord();
+        } else {
+            index = 0;
+            drawWord();
+        };
+    };
+};
+function drawWord() {
+    progress.style.width = 100 * index / (wording.length - 1) + "%"
+    readDisplay.innerText = wording[index]
+};
 document.onwheel = function (e) {
     if (e.deltaY > 0 && options.speed > 100) {
         options.speed -= options.scrollSens;
