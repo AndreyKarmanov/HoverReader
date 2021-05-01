@@ -33,7 +33,10 @@ html, body {
     height: 100%;
     float: left;
     background-color: aquamarine;
+    transition: width 0.2s linear;
 }
+
+
 
 .extra {
     position: absolute;
